@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesoría Beca 18</title>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/JS32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/JS16.png">
+    <link rel="shortcut icon" href="images/JS.png">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Social Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Encabezado -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <h1 class="site-title">
+                    <a href="https://bit.ly/AsesoriaBeca182025" target="_blank">
+                        Asesoría Beca 18
+                        <img src="images/JS.png" alt="JS Logo">
+                    </a>
+                </h1>
+                <button class="menu-toggle" aria-label="Abrir menú">
+                    <span class="hamburger"></span>
+                </button>
+                <nav class="main-nav">
+                    <a href="#inicio" onclick="switchTab('#inicio', event)">Inicio</a>
+                    <a href="#sobre-mi" onclick="switchTab('#sobre-mi', event)">Sobre mí</a>
+                    <a href="#servicio" onclick="switchTab('#servicio', event)">Sobre el Servicio</a>
+                    <a href="#preseleccion" onclick="switchTab('#preseleccion', event)">Calculadora Preselección</a>
+                    <a href="#seleccion" onclick="switchTab('#seleccion', event)">Calculadora Selección</a>
+                    <a href="#puntajes" onclick="switchTab('#puntajes', event)">Puntajes Mínimos</a>
+                    <a href="#contacto" onclick="switchTab('#contacto', event)">Contáctanos</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenedor para las secciones, con ajuste de espacio superior -->
+    <div class="content-wrapper">
+        <!-- Carrusel -->
+        <div id="carrusel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carrusel" data-bs-slide-to="0" class="active" aria-current="true"
+                    aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carrusel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carrusel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="images/1.png" class="d-block w-100" alt="Imagen 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/2.png" class="d-block w-100" alt="Imagen 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="images/3.png" class="d-block w-100" alt="Imagen 3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carrusel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carrusel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <!-- Contenido de las secciones -->
+        <div class="container">
+            
+            <!-- Sección Inicio -->
+            <section id="inicio" class="tab-pane section">
+                <div class="container text-center">
+                    <h2>Bienvenido a la Asesoría para BECA 18 2025</h2>
+
+                    <div class="about-me-intro">
+                        <p>Te ofrezco toda la ayuda necesaria para que puedas ser seleccionado en el proceso de Beca 18.
+                        </p>
+                    </div>
+
+                    <div class="presentation-container section-bg">
+                        <h3>🎓 Postula a Beca 18 aquí 🚀</h3>
+                        <p>¡No pierdas la oportunidad de cambiar tu futuro! Haz clic en el botón para ir a la página
+                            oficial de postulación:</p>
+                        <a href="https://www.pronabec.gob.pe/beca-18/" target="_blank" class="btn-custom">Postular a
+                            Beca 18</a>
+                    </div>
+
+                    <div class="video-container section-bg">
+                        <h3>Explicación completa de BECA 18 2025</h3>
+                        <div class="responsive-iframe">
+                            <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/YzrZqHNPpfg?si=ppVdQfjsKQOaFgMl"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <div class="presentation-container section-bg">
+                        <h3>Lo que debes saber sobre BECA 18 2025</h3>
+                        <div class="responsive-iframe">
+                            <iframe loading="lazy"
+                                style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                                src="https://www.canva.com/design/DAGQ-YGrOy0/ibl2GcjavpqPXjLZdS2BFQ/view?embed"
+                                allowfullscreen="allowfullscreen" allow="fullscreen">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Sobre mí -->
+            <section id="sobre-mi" class="tab-pane section">
+                <div class="container">
+                    <h2 class="text-center">Sobre mí</h2>
+
+                    <div class="about-me-intro">
+                        <a href="https://www.linkedin.com/in/juniorsegovia/" target="_blank">
+                            <img src="images/Juffyto.png" alt="Juffyto Segovia" class="about-me-image">
+                        </a>
+                        <p><strong>Hola, ¿qué tal?, soy Juffyto Segovia</strong> 👋, ganador de Beca 18 y estudiante de
+                            Ingeniería
+                            de Sistemas en la Universidad Científica del Sur. Actualmente, estoy realizando un
+                            intercambio estudiantil
+                            en la Universidad Pontificia Bolivariana de Medellín, donde me encuentro estudiando
+                            Ingeniería de Sistemas
+                            e Informática por un semestre.</p>
+                    </div>
+
+                    <div class="about-me-details">
+                        <div class="presentation-container section-bg">
+                            <h3>Mi pasión 🔥</h3>
+                            <p>Me apasionan las <strong>inversiones</strong> 💹, las <strong>ideas de negocio</strong>
+                                💡 y el
+                                <strong>emprendimiento</strong> 🚀. Disfruto ver la felicidad de los postulantes al
+                                ganar la beca y
+                                escucharles decir: <strong>"¡Juffyto, lo logré!"</strong> 🎉
+                            </p>
+                        </div>
+
+                        <div class="presentation-container section-bg">
+                            <h3>Mi experiencia 📚</h3>
+                            <p>He ayudado a miles de postulantes en las convocatorias de Beca 18 2023 y 2024. Realizo
+                                <strong>análisis
+                                    de datos</strong> 📊 y evalúo los puntajes mínimos para asegurar que obtengas tu
+                                beca. Además, ofrezco
+                                herramientas, scripts y presentaciones para informarte y apoyarte en el proceso.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="video-container">
+                        <h3>Cómo gané BECA 18 2020 🏆</h3>
+                        <div class="responsive-iframe">
+                            <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/fhhR-VVpYb8?si=0Nb0ZbaE99GXzMGt"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Servicio -->
+            <section id="servicio" class="tab-pane section">
+                <div class="container text-center">
+                    <h2>Sobre el Servicio</h2>
+
+                    <div class="about-me-intro">
+                        <h3>Servicio de Asesoría Personalizada BECA 18 2025</h3>
+                        <p>📢¿Sueñas con ganar Beca 18 y transformar tu futuro educativo? ¡Tu éxito comienza aquí! 😎
+                        </p>
+                        <p><strong>¡Asegura tu Beca con Asesoría Personalizada para Beca 18 2025!</strong></p>
+                        <p>Únete al exclusivo servicio de asesoría personalizada para Beca 18 2025, diseñado por un
+                            ganador de la
+                            beca que conoce todos los secretos del proceso.</p>
+                    </div>
+
+                    <div class="cta-container">
+                        <p><strong>¿Listo para asegurar tu futuro?</strong> ¡Inscríbete ahora y comienza tu camino hacia
+                            el éxito
+                            con Beca 18!</p>
+                        <a href="https://bit.ly/AsesoriaBeca182025" target="_blank" class="btn-custom">Inscríbete
+                            Ahora</a>
+                    </div>
+
+                    <div class="video-container section-bg">
+                        <h3>🚀Asesoría Personalizada Beca 18 - 2025🌟 ¡Aseguremos tu beca!✅</h3>
+                        <div class="responsive-iframe">
+                            <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/TUsk1pDRne0?si=3B93TXavjKFkoPqs"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+
+                    <div class="video-container section-bg">
+                        <h3>¿Qué obtendrás al optar por el servicio de asesoría?</h3>
+                        <ul class="service-benefits">
+                            <li><strong>✅ Asesoría experta:</strong> Recibe orientación de alguien que ya pasó por el
+                                proceso y conoce
+                                la mayoría de los detalles del proceso. He cubierto las convocatorias 2023 y 2024,
+                                ayudando a muchos a
+                                asegurar su beca.</li>
+                            <li><strong>✅ Estrategias personalizadas:</strong> Te enseñaré cómo mejorar tu puntaje y
+                                destacarte en la
+                                selección acorde a los criterios de puntaje de beca 18 2025.</li>
+                            <li><strong>✅ Material exclusivo:</strong> Accede a guías, videos y estadísticas de puntajes
+                                mínimos.</li>
+                            <li><strong>✅ Soporte continuo:</strong> Desde el momento en que te inscribes hasta que
+                                ganes tu beca,
+                                estaré a tu lado para resolver todas tus dudas.</li>
+                            <li><strong>✅ Sesiones en vivo:</strong> Participa en sesiones en vivo por Teams, cada
+                                semana o cuando sea
+                                necesario, donde abordaremos los temas más importantes acordes al avance del concurso y
+                                sus etapas,
+                                donde responderé a todas tus preguntas en vivo.</li>
+                            <li><strong>✅ Comunidad de apoyo:</strong> Únete a un grupo exclusivo donde podrás
+                                interactuar con otros
+                                postulantes que opten por el servicio.</li>
+                            <li><strong>✅ Acceso a grupos free:</strong> Únete a un grupo de beca 18 donde hay becarios
+                                de
+                                convocatorias pasadas.</li>
+                        </ul>
+                    </div>
+
+                    <div class="cta-container">
+                        <p><strong>¡No dejes pasar esta oportunidad!</strong> Completa el formulario, sube la captura de
+                            tu pago, y
+                            comienza tu camino hacia el éxito. ¡Esta es tu oportunidad de asegurar un futuro brillante
+                            con la ayuda de
+                            alguien que ya ha ganado la beca!</p>
+                        <a href="https://bit.ly/AsesoriaBeca182025" target="_blank" class="btn-custom">Inscríbete
+                            Ahora</a>
+                    </div>
+
+                    <div class="disclaimer">
+                        <p><strong>Recuerda</strong>, la Beca 18 es una gran oportunidad y muchos la han obtenido sin
+                            necesidad de
+                            asesoría. Sin embargo, si deseas una guía personalizada y quieres asegurarte de que estás en
+                            el camino
+                            correcto, estaré encantado de ayudarte.</p>
+                    </div>
+
+                    <div class="video-container section-bg">
+                        <h3>😎Testimonios de ganadores de BECA 18 2023👨‍🎓👩‍🎓</h3>
+                        <div class="responsive-iframe">
+                            <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/mgUMCs4zcbw?si=YzUHNhzqi1KSOjEs"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Calculadora Preselección -->
+            <section id="preseleccion" class="tab-pane section">
+                <div class="container text-center">
+                    <h2>Calculadora de Preselección Beca 18 2025</h2>
+
+                    <div class="about-me-intro">
+                        <p>Utiliza nuestra herramienta para calcular y simular tu puntaje de preselección en Beca 18
+                            2025.</p>
+                    </div>
+
+                    <div class="presentation-container section-bg">
+                        <form id="preseleccionForm">
+                            <div class="form-group">
+                                <label for="nombre">Tu nombre:</label>
+                                <input type="text" id="nombre" name="nombre" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="modalidad">(M) Modalidad de postulación:</label>
+                                <select id="modalidad" name="modalidad" required>
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="ordinaria">Ordinaria</option>
+                                    <option value="cna_pa">CNA y PA</option>
+                                    <option value="eib">EIB</option>
+                                    <option value="proteccion">Protección</option>
+                                    <option value="ff_aa">FF. AA.</option>
+                                    <option value="vraem">VRAEM</option>
+                                    <option value="huallaga">Huallaga</option>
+                                    <option value="repared">REPARED</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="enp">(ENP) Puntaje del Examen Nacional de Preselección (0-120):</label>
+                                <input type="number" id="enp" name="enp" min="0" max="120" step="2" required>
+                                <p id="enp-error" class="error-message"></p>
+                                <p class="input-hint">Ingresa un número par entre 0 y 120.</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pobreza">(S) Clasificación SISFOH:</label>
+                                <select id="pobreza" name="pobreza" required>
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="extrema">(PE) Pobreza extrema - 5 puntos</option>
+                                    <option value="no_extrema">(P) Pobreza - 2 puntos</option>
+                                    <option value="no_pobre">No pobre - 0 puntos</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="quintil">(T) Quintil de la tasa de transición:</label>
+                                <select id="quintil" name="quintil" required>
+                                    <option value="">Selecciona un quintil</option>
+                                    <option value="1">Quintil 1 (Amazonas, Ucayali, Ayacucho, Puno, Loreto) - 10 puntos
+                                    </option>
+                                    <option value="2">Quintil 2 (San Martín, Cusco, Huánuco, Apurímac, Huancavelica) - 7
+                                        puntos</option>
+                                    <option value="3">Quintil 3 (Áncash, Tacna, Madre de Dios, Moquegua, Pasco,
+                                        Cajamarca) - 5 puntos</option>
+                                    <option value="4">Quintil 4 (Arequipa, Piura, Junín, Tumbes) - 2 puntos</option>
+                                    <option value="5">Quintil 5 (Ica, Lambayeque, Lima, La Libertad) - 0 puntos</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Participación en Actividades Extracurriculares - Máximo 10 puntos:</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" name="extracurricular" value="concurso_nacional">
+                                        (CE) Concurso Escolar Nacional (1°, 2º o 3º Puesto Etapa Nacional) o Concurso
+                                        Escolar Internacional - 5 puntos</label>
+                                    <label><input type="checkbox" name="extracurricular" value="concurso_participacion">
+                                        (CEP) Participación en la Etapa Nacional de los Concursos Escolares Nacionales -
+                                        2 puntos</label>
+                                    <label><input type="checkbox" name="extracurricular" value="juegos_nacionales">
+                                        (JD) Juegos Deportivos Escolares (1°, 2º o 3° puesto en Etapa Nacional) - 5
+                                        puntos</label>
+                                    <label><input type="checkbox" name="extracurricular" value="juegos_participacion">
+                                        (JDP) Participación en la Etapa Nacional de los Juegos Deportivos Escolares
+                                        Nacionales - 2 puntos</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Otras condiciones priorizables - Máximo 25 puntos:</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" name="priorizable" value="discapacidad"> (D)
+                                        Discapacidad - 5 puntos</label>
+                                    <label><input type="checkbox" name="priorizable" value="bomberos"> (B) Bomberos
+                                        activos e hijos de bomberos - 5 puntos</label>
+                                    <label><input type="checkbox" name="priorizable" value="voluntarios"> (V)
+                                        Voluntarios reconocidos por el MIMP - 5 puntos</label>
+                                    <label><input type="checkbox" name="priorizable" value="comunidad_nativa">
+                                        (IA) Pertenencia a Comunidad Nativa Amazónica o Población Afroperuana - 5
+                                        puntos</label>
+                                    <label><input type="checkbox" name="priorizable" value="metales_pesados"> (PEM)
+                                        Población expuesta a metales pesados y otras sustancias químicas - 5
+                                        puntos</label>
+                                    <label><input type="checkbox" name="priorizable" value="poblacion_beneficiaria">
+                                        (PD) Población beneficiaria (Res. Suprema Nº 264-2022-JUS) - 5 puntos</label>
+                                    <label><input type="checkbox" name="priorizable" value="orfandad"> (OR) Población
+                                        beneficiaria de la Ley N° 31405 (orfandad) - 5 puntos</label>
+                                    <label><input type="checkbox" name="priorizable" value="desproteccion">
+                                        (DF) Desprotección familiar - 5 puntos</label>
+                                    <label><input type="checkbox" name="priorizable" value="agente_salud"> (ACS) Agente
+                                        Comunitario de Salud - 5 puntos</label>
+                                </div>
+                            </div>
+
+                            <div id="lenguaOriginaria" class="form-group" style="display: none;">
+                                <label for="lengua">(LO) Priorización de lengua originaria:</label>
+                                <select id="lengua" name="lengua">
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="primera">Hablante de lengua de primera prioridad - 10 puntos</option>
+                                    <option value="segunda">Hablante de lengua de segunda prioridad - 5 puntos</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn-custom">Calcular Puntaje</button>
+                            <button type="button" id="limpiarForm" class="btn-custom btn-secondary">Limpiar
+                                Formulario</button>
+                        </form>
+
+                        <div id="resultadoPreseleccion" class="resultado-container"></div>
+                        <div class="download-options" style="display: none;">
+                            <select id="formatoDescarga" class="form-select">
+                                <option value="pdf">PDF</option>
+                                <option value="png">Imagen PNG</option>
+                            </select>
+                            <button id="descargarResultado" class="btn-custom">Descargar Resultado</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Calculadora Selección -->
+            <section id="seleccion" class="tab-pane section">
+                <div class="container text-center">
+                    <h2>Calculadora de Selección Beca 18 2025</h2>
+
+                    <div class="about-me-intro">
+                        <p>Utiliza nuestra herramienta para calcular y simular tu puntaje de selección en Beca 18 2025.
+                        </p>
+                    </div>
+
+                    <div class="presentation-container section-bg">
+                        <form id="seleccionForm">
+                            <div class="form-group">
+                                <label for="nombreSeleccion">Tu nombre:</label>
+                                <input type="text" id="nombreSeleccion" name="nombreSeleccion" maxlength="50" required
+                                    placeholder="Ingresa tu nombre">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="modalidadSeleccion">Modalidad:</label>
+                                <select id="modalidadSeleccion" name="modalidadSeleccion" required>
+                                    <option value="">Selecciona una modalidad</option>
+                                    <option value="ordinaria">Ordinaria</option>
+                                    <option value="cna_pa">CNA y PA</option>
+                                    <option value="eib">EIB</option>
+                                    <option value="proteccion">Protección</option>
+                                    <option value="ff_aa">FF. AA.</option>
+                                    <option value="vraem">VRAEM</option>
+                                    <option value="huallaga">Huallaga</option>
+                                    <option value="repared">REPARED</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="puntajePreseleccion">(PS) Puntaje de Preselección:</label>
+                                <input type="number" id="puntajePreseleccion" name="puntajePreseleccion" min="0"
+                                    max="180" required placeholder="Ingresa tu puntaje de preselección">
+                                <p id="puntajePreseleccionError" class="error-message"></p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="regionIES">Región IES:</label>
+                                <select id="regionIES" name="regionIES">
+                                    <option value="">Todas las regiones</option>
+                                    <!-- Las opciones se cargarán dinámicamente con JavaScript -->
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tipo de IES:</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" name="tipoIES" value="universidad">
+                                        Universidad</label>
+                                    <label><input type="checkbox" name="tipoIES" value="instituto"> Instituto</label>
+                                    <label><input type="checkbox" name="tipoIES" value="escuela_pedagogica"> Escuela
+                                        Pedagógica</label>
+                                    <label><input type="checkbox" name="tipoIES" value="escuela_tecnologica"> Escuela
+                                        Tecnológica</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Gestión IES:</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" name="gestionIES" value="privada"> Privada</label>
+                                    <label><input type="checkbox" name="gestionIES" value="privada_asociativa"> Privada
+                                        Asociativa</label>
+                                    <label><input type="checkbox" name="gestionIES" value="publica"> Pública</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="iesSeleccion">Instituciones de Educación Superior:</label>
+                                <select id="iesSeleccion" name="iesSeleccion" required>
+                                    <option value="">Selecciona una IES</option>
+                                    <!-- Las opciones se cargarán dinámicamente con JavaScript -->
+                                </select>
+                            </div>
+
+                            <div id="iesInfo" class="form-group" style="display: none;">
+                                <h4>Información de la IES seleccionada:</h4>
+                                <div class="ies-info-grid">
+                                    <div class="ies-info-item">
+                                        <label>Código Tipo IES:</label>
+                                        <input type="text" id="codigoTipoIES" readonly>
+                                    </div>
+                                    <div class="ies-info-item">
+                                        <label>Tipo IES:</label>
+                                        <input type="text" id="tipoIES" readonly>
+                                    </div>
+                                    <div class="ies-info-item">
+                                        <label>Región IES:</label>
+                                        <input type="text" id="regionIES" readonly>
+                                    </div>
+                                    <div class="ies-info-item">
+                                        <label>Siglas IES:</label>
+                                        <input type="text" id="siglasIES" readonly>
+                                    </div>
+                                    <div class="ies-info-item">
+                                        <label>Top IES:</label>
+                                        <input type="text" id="topIES" readonly>
+                                    </div>
+                                    <div class="ies-info-item">
+                                        <label>Ranking IES:</label>
+                                        <input type="text" id="rankingIES" readonly>
+                                    </div>
+                                    <div class="ies-info-item">
+                                        <label>Puntaje Ranking IES:</label>
+                                        <input type="text" id="puntajeRankingIES" readonly>
+                                    </div>
+                                    <div class="ies-info-item">
+                                        <label>Gestión IES:</label>
+                                        <input type="text" id="gestionIES" readonly>
+                                    </div>
+                                    <div class="ies-info-item">
+                                        <label>Puntaje Gestión IES:</label>
+                                        <input type="text" id="puntajeGestionIES" readonly>
+                                    </div>
+                                    <div class="ies-info-item">
+                                        <label>Ratio Selectividad:</label>
+                                        <input type="text" id="ratioSelectividad" readonly>
+                                    </div>
+                                    <div class="ies-info-item">
+                                        <label>Puntaje Ratio Selectividad:</label>
+                                        <input type="text" id="puntajeRatioSelectividad" readonly>
+                                    </div>
+                                    <div class="ies-info-item">
+                                        <label>Puntos Extra PAO:</label>
+                                        <input type="text" id="puntosExtraPAO" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-custom">Calcular Puntaje de Selección</button>
+                            <button type="button" id="limpiarFormSeleccion" class="btn-custom btn-secondary">Limpiar
+                                Formulario</button>
+                        </form>
+
+                        <div id="resultadoSeleccion" class="resultado-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Puntajes Mínimos -->
+            <section id="puntajes" class="tab-pane section">
+                <div class="container text-center">
+                    <h2>Puntajes Mínimos</h2>
+
+                    <div class="about-me-intro">
+                        <p>Información actualizada sobre los puntajes mínimos requeridos para Beca 18.</p>
+                    </div>
+
+                    <div class="video-container section-bg">
+                        <h3>Entendiendo los Puntajes Mínimos</h3>
+                        <div class="responsive-iframe">
+                            <!-- Aquí podrías incluir un video explicativo -->
+                            <p>Video explicativo próximamente...</p>
+                        </div>
+                    </div>
+
+                    <div class="presentation-container section-bg">
+                        <h3>Tabla de Puntajes Mínimos</h3>
+                        <!-- Aquí iría una tabla o gráfico con los puntajes -->
+                        <p>Información actualizada próximamente.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección Contacto -->
+            <section id="contacto" class="tab-pane section">
+                <div class="container text-center">
+                    <h2>Contáctanos</h2>
+
+                    <div class="about-me-intro">
+                        <p>Estoy aquí para ayudarte en tu postulación para BECA 18 2025. Si deseas la asesoría
+                            personalizada te dejo
+                            la forma de contactarme aquí.</p>
+                    </div>
+
+                    <div class="video-container section-bg">
+                        <h3>📩 Canales de Atención</h3>
+                        <ul class="list-unstyled">
+                            <li>📧 Email: f8task@gmail.com</li>
+                            <li>📱 WhatsApp: +51 939 824 399</li>
+                        </ul>
+                    </div>
+
+                    <div class="presentation-container section-bg">
+                        <h3>🌐 Síguenos en Redes Sociales</h3>
+                        <div class="social-icons">
+                            <a href="https://www.facebook.com/JuffytoSegovia" target="_blank"><i
+                                    class="fab fa-facebook"></i></a>
+                            <a href="https://wa.link/1u4mdo" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://www.instagram.com/juffyto/" target="_blank"><i
+                                    class="fab fa-instagram"></i></a>
+                            <a href="https://www.linkedin.com/in/juniorsegovia/" target="_blank"><i
+                                    class="fab fa-linkedin"></i></a>
+                            <a href="https://www.tiktok.com/@juffytosegovia" target="_blank"><i
+                                    class="fab fa-tiktok"></i></a>
+                            <a href="https://www.youtube.com/@Juffyto" target="_blank"><i
+                                    class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="presentation-container section-bg">
+                        <h3>👥 Únete a Nuestros Grupos</h3>
+                        <div class="group-links">
+                            <div class="group-row">
+                                <a href="https://bit.ly/Beca182025" target="_blank" class="group-link"><i
+                                        class="fab fa-whatsapp"></i>
+                                    GRUPO WHATSAPP</a>
+                                <a href="https://discord.gg/Kwg6pUwWtc" target="_blank" class="group-link"><i
+                                        class="fab fa-discord"></i> GRUPO DISCORD</a>
+                            </div>
+                            <div class="group-row">
+                                <a href="https://t.me/+teoTNacA1xFmYjlh" target="_blank" class="group-link"><i
+                                        class="fab fa-telegram"></i> GRUPO TELEGRAM</a>
+                                <a href="https://bit.ly/Beca18FB" target="_blank" class="group-link"><i
+                                        class="fab fa-facebook"></i>
+                                    GRUPO FACEBOOK</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Asesoría Beca 18 - Todos los derechos reservados</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/JuffytoSegovia" target="_blank"><i
+                            class="fab fa-facebook"></i></a>
+                    <a href="https://wa.link/1u4mdo" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/juffyto/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/juniorsegovia/" target="_blank"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://www.tiktok.com/@juffytosegovia" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.youtube.com/@Juffyto" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- html2canvas y jsPDF para la funcionalidad de descarga -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>
