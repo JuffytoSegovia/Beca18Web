@@ -153,6 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Evento para el envío del formulario de preselección
     preseleccionForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -308,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Mostrar resultado
         let resultado = `<h2>Reporte de Preselección para ${nombre}</h2>`;
-        resultado += `<button class="btn ${colorClase}">Tu puntaje estimado de preselección es: <strong>${puntaje.toFixed(2)}</strong> puntos</button>`;
+        resultado += `<button class="btn ${colorClase}">Tu puntaje estimado de preselección es: <strong>${puntaje}</strong> puntos</button>`;
         resultado += '<div class="resultado-detalle"><h4>Desglose del puntaje:</h4><ul>';
         detalles.forEach(detalle => {
             resultado += `<li>${detalle}</li>`;
@@ -337,56 +338,84 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('.download-options').style.display = 'flex';
     });
 
-    // Imprimir PDF o PNG
+    // Imprimir PDF o PNG para el reporte de preselección
     descargarResultadoBtn.addEventListener('click', function () {
         const elemento = document.getElementById('resultadoPreseleccion');
         const formato = document.getElementById('formatoDescarga').value;
+
+        // Asegurarnos que el elemento tenga posición relativa
+        const originalPosition = window.getComputedStyle(elemento).position;
+        elemento.style.position = 'relative';
 
         // Añadir temporalmente una marca de agua visible al elemento
         const watermark = document.createElement('div');
         watermark.className = 'watermark';
         watermark.textContent = 'Juffyto Segovia Asesoría BECA 18 2025';
+        watermark.style.position = 'absolute';
+        watermark.style.top = '50%';
+        watermark.style.left = '50%';
+        watermark.style.transform = 'translate(-50%, -50%) rotate(-45deg)';
+        watermark.style.fontSize = '40px';
+        watermark.style.opacity = '0.4';
+        watermark.style.color = 'rgba(255, 0, 0, 0.751)';
+        watermark.style.pointerEvents = 'none';
+        watermark.style.whiteSpace = 'nowrap';
+        watermark.style.zIndex = '1000';
+        watermark.style.textAlign = 'center';
+        watermark.style.width = '100%';
+
         elemento.appendChild(watermark);
 
-        // Forzar un reflow para asegurar que la marca de agua se renderice
-        elemento.offsetHeight;
+        // Reducir la escala para mejorar el rendimiento
+        const scale = formato === 'pdf' ? 1.5 : 1;
 
-        html2canvas(elemento, {
-            scale: 2,
-            logging: true,
-            useCORS: true,
-            onclone: function (clonedDoc) {
-                clonedDoc.querySelector('.watermark').style.display = 'block';
-            }
-        }).then(canvas => {
-            // Eliminar la marca de agua temporal del DOM
-            elemento.removeChild(watermark);
+        // Esperar a que la marca de agua se aplique completamente
+        setTimeout(() => {
+            html2canvas(elemento, {
+                scale: scale,
+                logging: false,
+                useCORS: true,
+                backgroundColor: '#F0F0F0',
+                onclone: function (clonedDoc) {
+                    const clonedElement = clonedDoc.querySelector('#resultadoPreseleccion');
+                    clonedElement.style.padding = '15px';
+                    clonedElement.style.borderRadius = '5px';
+                }
+            }).then(canvas => {
+                // Restaurar el estilo original del elemento
+                elemento.style.position = originalPosition;
 
-            if (formato === 'png') {
-                // Descargar como PNG
-                canvas.toBlob(function (blob) {
-                    const url = URL.createObjectURL(blob);
+                // Eliminar la marca de agua temporal del DOM
+                elemento.removeChild(watermark);
+
+                if (formato === 'png') {
+                    // Descargar como PNG
                     const link = document.createElement('a');
                     link.download = 'Reporte_Preseleccion_Beca18.png';
-                    link.href = url;
+                    link.href = canvas.toDataURL('image/png');
                     link.click();
-                    URL.revokeObjectURL(url);
-                });
-            } else {
-                // Descargar como PDF
-                const imgData = canvas.toDataURL('image/png');
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const imgProps = pdf.getImageProperties(imgData);
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                pdf.save('Reporte_Preseleccion_Beca18.pdf');
-            }
-        }).catch(function (error) {
-            console.error('Error en html2canvas:', error);
-            alert('Hubo un error al generar la imagen. Por favor, inténtelo de nuevo.');
-        });
+                } else {
+                    // Descargar como PDF con compresión
+                    const imgData = canvas.toDataURL('image/jpeg', 0.75);
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const imgProps = pdf.getImageProperties(imgData);
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                    pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+                    pdf.save('Reporte_Preseleccion_Beca18.pdf');
+                }
+            }).catch(function (error) {
+                console.error('Error en html2canvas:', error);
+                alert('Hubo un error al generar la imagen. Por favor, inténtelo de nuevo.');
+
+                // Asegurarse de limpiar incluso en caso de error
+                elemento.style.position = originalPosition;
+                if (elemento.contains(watermark)) {
+                    elemento.removeChild(watermark);
+                }
+            });
+        }, 100);
     });
 });
 
@@ -428,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para cargar las regiones únicas en el selector
     function cargarRegiones() {
         const regionSelect = document.getElementById('regionIES');
-        regionSelect.innerHTML = '<option value="">Todas las regiones</option>';
+        regionSelect.innerHTML = '<option value="">Selecciona una región (obligatorio)</option>';
 
         // Obtener regiones únicas y ordenarlas alfabéticamente
         const regiones = [...new Set(iesData.map(ies => ies.regionIES))].sort();
@@ -566,8 +595,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Función para filtrar IES según todos los criterios seleccionados
     function filtrarIES() {
         console.log("Filtrando IES");
-
         const regionSeleccionada = document.getElementById('regionIES').value;
+
+        // Si no hay región seleccionada, limpiar el selector de IES y mostrar mensaje
+        if (!regionSeleccionada) {
+            iesSelect.innerHTML = '<option value="">Selecciona una región primero</option>';
+            iesInfo.style.display = 'none';
+            return;
+        }
 
         // Obtener los tipos y gestiones seleccionados
         const tiposSeleccionados = Array.from(
@@ -585,11 +620,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // Aplicar filtros encadenados
         let iesFiltradas = iesData;
 
-        // Filtrar por región
-        if (regionSeleccionada) {
-            iesFiltradas = iesFiltradas.filter(ies => ies.regionIES === regionSeleccionada);
-            console.log("Después de filtrar por región:", iesFiltradas.length);
-        }
+        // Filtrar por región (ahora obligatorio)
+        iesFiltradas = iesFiltradas.filter(ies => ies.regionIES === regionSeleccionada);
+        console.log("Después de filtrar por región:", iesFiltradas.length);
 
         // Filtrar por tipos seleccionados
         if (tiposSeleccionados.length > 0) {
@@ -603,15 +636,25 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("Después de filtrar por gestiones:", iesFiltradas.length);
         }
 
+        // Crear un mapa para eliminar duplicados basados en nombreIES dentro de la misma región
+        const iesUnicas = new Map();
+        iesFiltradas.forEach(ies => {
+            // Usamos el nombre de la IES como clave del mapa
+            if (!iesUnicas.has(ies.nombreIES)) {
+                iesUnicas.set(ies.nombreIES, ies);
+            }
+        });
+
+        // Convertir el mapa de IES únicas a un array
+        iesFiltradas = Array.from(iesUnicas.values());
+
         // Actualizar el selector de IES con las filtradas
         iesSelect.innerHTML = '<option value="">Selecciona una IES</option>';
 
         // Ordenar IES por nombre para facilitar la búsqueda
         iesFiltradas.sort((a, b) => a.nombreIES.localeCompare(b.nombreIES));
 
-        console.log("Total de IES filtradas:", iesFiltradas.length);
-
-        // Mostrar las primeras 5 IES filtradas para depuración
+        console.log("Total de IES filtradas (únicas):", iesFiltradas.length);
         console.log("Ejemplos de IES filtradas:", iesFiltradas.slice(0, 5).map(ies => ies.nombreIES));
 
         // Añadir cada IES como opción
@@ -619,6 +662,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const option = document.createElement('option');
             option.value = ies.nombreIES;
             option.textContent = ies.nombreIES;
+            option.dataset.region = ies.regionIES; // Guardar la región como atributo de datos
             iesSelect.appendChild(option);
         });
 
@@ -627,7 +671,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }//Hasta aqui se agrego para la carga de regiones
 
     // Función para mostrar la información de la IES seleccionada
-    function mostrarInfoIES(ies) {
+    function mostrarInfoIES(iesNombre) {
+        console.log("Buscando información de IES:", iesNombre);
+
+        // Obtener la región seleccionada
+        const regionSeleccionada = document.getElementById('regionIES').value;
+
+        // Buscar la IES que coincida con el nombre y la región seleccionada
+        const ies = iesData.find(item =>
+            item.nombreIES === iesNombre &&
+            item.regionIES === regionSeleccionada
+        );
+
+        if (!ies) {
+            console.error("No se encontró la IES seleccionada en la región indicada");
+            return;
+        }
+
         console.log("Mostrando información de IES:", ies);
 
         // Obtener los elementos antes de asignar valores
@@ -685,9 +745,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Evento para cuando se seleccione una IES
     iesSelect.addEventListener('change', function () {
-        const selectedIES = iesData.find(ies => ies.nombreIES === this.value);
-        if (selectedIES) {
-            mostrarInfoIES(selectedIES);
+        const selectedIESName = this.value;
+        if (selectedIESName) {
+            mostrarInfoIES(selectedIESName);
         } else {
             iesInfo.style.display = 'none';
         }
@@ -699,9 +759,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const nombre = document.getElementById('nombreSeleccion').value;
         const modalidad = document.getElementById('modalidadSeleccion').value;
-        const iesSeleccionada = iesSelect.value;
-        const selectedIES = iesData.find(ies => ies.nombreIES === iesSeleccionada);
+        const iesSeleccionadaNombre = iesSelect.value;
+        const regionSeleccionada = document.getElementById('regionIES').value;
+
+        // Buscar la IES que coincida con el nombre y la región seleccionada
+        const selectedIES = iesData.find(ies =>
+            ies.nombreIES === iesSeleccionadaNombre &&
+            ies.regionIES === regionSeleccionada
+        );
+
         const puntajePreseleccion = parseInt(puntajePreseleccionInput.value);
+
+        if (!regionSeleccionada) {
+            alert('Por favor, seleccione una región.');
+            return;
+        }
 
         if (!selectedIES) {
             alert('Por favor, seleccione una IES válida.');
@@ -713,24 +785,145 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const puntosExtraPAO = parseInt(selectedIES.puntosExtraPAO) || 0;
-        const puntajeSeleccion = puntajePreseleccion + puntosExtraPAO;
+        // Calcular puntajes
+        const puntajeRanking = parseInt(selectedIES.puntajeRankingIES) || 0;
+        const puntajeGestion = parseInt(selectedIES.puntajeGestionIES) || 0;
+        const puntajeSelectividad = parseInt(selectedIES.puntajeRatioSelectividad) || 0;
+        const puntajeTotal = puntajePreseleccion + puntajeRanking + puntajeGestion + puntajeSelectividad;
+        const puntajeIES = puntajeRanking + puntajeGestion + puntajeSelectividad;
 
-        let resultado = `
-      <h3>Resultado de Selección para ${nombre}</h3>
-      <p>Modalidad: ${modalidad}</p>
-      <p>IES seleccionada: ${selectedIES.nombreIES}</p>
-      <button class="btn btn-primary">Tu puntaje de selección es: <strong>${puntajeSeleccion.toFixed(2)}</strong> puntos</button>
-      <div class="resultado-detalle">
-        <h4>Desglose del puntaje:</h4>
-        <ul>
-          <li>Puntaje de Preselección: ${puntajePreseleccion} puntos</li>
-          <li>Puntos Extra PAO: ${puntosExtraPAO} puntos</li>
-        </ul>
-      </div>
-    `;
+        // Determinar color según el puntaje
+        let colorClase = '';
+        if (puntajeTotal >= 120) {
+            colorClase = 'btn-success';
+        } else if (puntajeTotal >= 110) {
+            colorClase = 'btn-info';
+        } else if (puntajeTotal >= 100) {
+            colorClase = 'btn-warning';
+        } else {
+            colorClase = 'btn-danger';
+        }
+
+        // Mensaje personalizado según puntaje
+        let mensajePersonalizado = '';
+        if (puntajeTotal >= 120) {
+            mensajePersonalizado = `¡Felicidades, ${nombre}! Tienes una excelente probabilidad de ganar la beca. Asegúrate de completar tu postulación en las fechas indicadas.`;
+        } else if (puntajeTotal >= 110) {
+            mensajePersonalizado = `¡Muy bien, ${nombre}! Tienes buenas posibilidades de ganar la beca. No olvides estar pendiente del cronograma de postulación.`;
+        } else if (puntajeTotal >= 100) {
+            mensajePersonalizado = `${nombre}, tienes posibilidades de ganar la beca. Te recomendamos revisar otras IES que podrían aumentar tu puntaje.`;
+        } else {
+            mensajePersonalizado = `${nombre}, tu puntaje está por debajo del promedio. Te sugerimos explorar otras IES que podrían mejorar tu puntaje significativamente.`;
+        }
+
+        // Puntaje máximo según modalidad
+        const puntajeMaximo = modalidad === 'eib' ? 210 : 200;
+
+        // Crear el resultado
+        let resultado = `<h2>Reporte de Selección para ${nombre}</h2>`;
+        resultado += `<button class="btn ${colorClase}">Tu puntaje de selección es: <strong>${puntajeTotal}</strong> puntos</button>`;
+        resultado += '<div class="resultado-detalle"><h4>Desglose del puntaje:</h4><ul>';
+        resultado += `<li>✅ Modalidad (M): ${modalidad}</li>`;
+        resultado += `<li>✅ PS (Puntaje de Preselección): <span class="puntaje-detalle">${puntajePreseleccion} puntos</span></li>`;
+        resultado += `<li>✅ C (Puntaje por Ranking): <span class="puntaje-detalle">+${puntajeRanking} puntos</span></li>`;
+        resultado += `<li>✅ G (Puntaje por Gestión): <span class="puntaje-detalle">+${puntajeGestion} puntos</span></li>`;
+        resultado += `<li>✅ S (Puntaje por Selectividad): <span class="puntaje-detalle">+${puntajeSelectividad} puntos</span></li>`;
+        resultado += `<li>✅ IES elegida: ${selectedIES.nombreIES} <span class="puntaje-detalle">(+${puntajeIES} puntos en total)</span></li>`;
+        resultado += '</ul></div>';
+
+        // Fórmula
+        resultado += `<div class="formula">Fórmula aplicada: Puntaje Total = PS + C + G + S</div>`;
+
+        // Puntaje máximo
+        resultado += `<p class="puntaje-maximo">Puntaje máximo para esta modalidad: ${puntajeMaximo} puntos</p>`;
+
+        // Mensaje personalizado
+        resultado += `<p class="mensaje-animo">${mensajePersonalizado}</p>`;
 
         resultadoSeleccion.innerHTML = resultado;
+
+        // Mostrar opciones de descarga
+        document.querySelector('#seleccion .download-options').style.display = 'flex';
+    });
+
+    // Imprimir PDF o PNG para el resultado de selección
+    document.getElementById('descargarResultadoSeleccion').addEventListener('click', function () {
+        const elemento = document.getElementById('resultadoSeleccion');
+        const formato = document.getElementById('formatoDescargaSeleccion').value;
+
+        // Asegurarnos que el elemento tenga posición relativa para que la marca de agua se posicione correctamente
+        const originalPosition = window.getComputedStyle(elemento).position;
+        elemento.style.position = 'relative';
+
+        // Añadir temporalmente una marca de agua visible al elemento
+        const watermark = document.createElement('div');
+        watermark.className = 'watermark';
+        watermark.textContent = 'Juffyto Segovia Asesoría BECA 18 2025';
+        watermark.style.position = 'absolute';
+        watermark.style.top = '50%';
+        watermark.style.left = '50%';
+        watermark.style.transform = 'translate(-50%, -50%) rotate(-45deg)';
+        watermark.style.fontSize = '40px';
+        watermark.style.opacity = '0.4';
+        watermark.style.color = 'rgba(255, 0, 0, 0.751)';
+        watermark.style.pointerEvents = 'none';
+        watermark.style.whiteSpace = 'nowrap';
+        watermark.style.zIndex = '1000';
+        watermark.style.textAlign = 'center';
+        watermark.style.width = '100%';
+
+        elemento.appendChild(watermark);
+
+        // Reducir la escala para mejorar el rendimiento
+        const scale = formato === 'pdf' ? 1.5 : 1;
+
+        // Esperar a que la marca de agua se aplique completamente
+        setTimeout(() => {
+            html2canvas(elemento, {
+                scale: scale,
+                logging: false,  // Desactivar logging para mejorar rendimiento
+                useCORS: true,
+                backgroundColor: '#F0F0F0',  // Color de fondo similar al del reporte
+                onclone: function (clonedDoc) {
+                    const clonedElement = clonedDoc.querySelector('#resultadoSeleccion');
+                    clonedElement.style.padding = '15px';
+                    clonedElement.style.borderRadius = '5px';
+                }
+            }).then(canvas => {
+                // Restaurar el estilo original del elemento
+                elemento.style.position = originalPosition;
+
+                // Eliminar la marca de agua temporal del DOM
+                elemento.removeChild(watermark);
+
+                if (formato === 'png') {
+                    // Descargar como PNG
+                    const link = document.createElement('a');
+                    link.download = 'Reporte_Seleccion_Beca18.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+                } else {
+                    // Descargar como PDF con compresión para reducir tamaño
+                    const imgData = canvas.toDataURL('image/jpeg', 0.75); // Usar JPEG con menor calidad para mejorar rendimiento
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('p', 'mm', 'a4');
+                    const imgProps = pdf.getImageProperties(imgData);
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                    pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+                    pdf.save('Reporte_Seleccion_Beca18.pdf');
+                }
+            }).catch(function (error) {
+                console.error('Error en html2canvas:', error);
+                alert('Hubo un error al generar la imagen. Por favor, inténtelo de nuevo.');
+
+                // Asegurarse de limpiar incluso en caso de error
+                elemento.style.position = originalPosition;
+                if (elemento.contains(watermark)) {
+                    elemento.removeChild(watermark);
+                }
+            });
+        }, 100); // Pequeño retraso para asegurar que los estilos se apliquen
     });
 
     // Cargar las IES cuando la página se cargue
