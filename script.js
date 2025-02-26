@@ -7,7 +7,7 @@ function switchTab(tabId, event) {
     });
     // Mostrar la sección seleccionada
     document.querySelector(tabId).style.display = 'block';
-    
+
     // Mostrar/ocultar el carrusel según la sección
     const carrusel = document.getElementById('carrusel');
     if (tabId === '#inicio') {
@@ -15,7 +15,7 @@ function switchTab(tabId, event) {
     } else {
         carrusel.style.display = 'none';
     }
-    
+
     // Actualizar la clase activa en el menú de navegación
     document.querySelectorAll('nav a').forEach(function (link) {
         link.classList.remove('active-nav');
@@ -34,7 +34,7 @@ function initializePage() {
 
     // Activar el primer tab al cargar la página
     document.querySelector('nav a').click();
-    
+
     // Ocultar el carrusel inicialmente si no estamos en la página de inicio
     if (window.location.hash && window.location.hash !== '#inicio') {
         document.getElementById('carrusel').style.display = 'none';
@@ -408,30 +408,242 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
+
             iesData = await response.json();
-            populateIESSelect();
+
+            // Cargar las regiones únicas en el selector de regiones
+            cargarRegiones();
+
+            // Inicializar los filtros y mostrar todas las IES
+            actualizarTiposIES();
+            actualizarGestionesIES();
+            filtrarIES();
         } catch (error) {
             console.error('Error al cargar los datos de IES:', error);
+            document.getElementById('regionIES').innerHTML = '<option value="">Error al cargar regiones</option>';
             iesSelect.innerHTML = '<option value="">Error al cargar IES</option>';
         }
     }
 
-    // Función para llenar el select con las opciones de IES
-    function populateIESSelect() {
-        iesSelect.innerHTML = '<option value="">Seleccione una IES</option>';
-        iesData.forEach(ies => {
+    // Función para cargar las regiones únicas en el selector
+    function cargarRegiones() {
+        const regionSelect = document.getElementById('regionIES');
+        regionSelect.innerHTML = '<option value="">Todas las regiones</option>';
+
+        // Obtener regiones únicas y ordenarlas alfabéticamente
+        const regiones = [...new Set(iesData.map(ies => ies.regionIES))].sort();
+
+        // Añadir cada región como opción
+        regiones.forEach(region => {
+            const option = document.createElement('option');
+            option.value = region;
+            option.textContent = region;
+            regionSelect.appendChild(option);
+        });
+
+        // Añadir evento de cambio para actualizar los demás filtros
+        regionSelect.addEventListener('change', function () {
+            actualizarTiposIES();
+            actualizarGestionesIES();
+            filtrarIES();
+        });
+    }
+
+    // Función para actualizar los checkboxes de Tipo de IES según la región seleccionada
+    function actualizarTiposIES() {
+        console.log("Actualizando tipos IES");
+
+        const regionSeleccionada = document.getElementById('regionIES').value;
+
+        // Eliminar todos los checkboxes de Tipo IES existentes
+        document.querySelectorAll('input[name="tipoIES"]').forEach(checkbox => {
+            checkbox.parentElement.remove();
+        });
+
+        // Obtener el contenedor donde agregaremos los nuevos checkboxes
+        const tipoIESSection = document.querySelector('#seleccionForm div:nth-child(5)');
+        const tiposContainer = tipoIESSection.querySelector('div') || tipoIESSection;
+
+        console.log("Contenedor de tipos IES:", tiposContainer);
+
+        // Filtrar IES por región si hay alguna seleccionada
+        const iesFiltradas = regionSeleccionada
+            ? iesData.filter(ies => ies.regionIES === regionSeleccionada)
+            : iesData;
+
+        // Obtener los tipos únicos de IES disponibles
+        const tiposDisponibles = [...new Set(iesFiltradas.map(ies => ies.tipoIES))];
+        console.log("Tipos disponibles:", tiposDisponibles);
+
+        // Crear los nuevos checkboxes
+        tiposDisponibles.forEach(tipo => {
+            const label = document.createElement('label');
+            label.style.marginRight = '10px'; // Agregar espacio entre los checkboxes
+
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.name = 'tipoIES';
+            input.value = tipo.toLowerCase();
+            input.dataset.tipo = tipo;
+
+            // Agregar evento de cambio
+            input.addEventListener('change', function () {
+                console.log("Tipo seleccionado:", tipo);
+                actualizarGestionesIES();
+                filtrarIES();
+            });
+
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(' ' + tipo));
+
+            tiposContainer.appendChild(label);
+        });
+    }
+
+    // Función para actualizar los checkboxes de Gestión IES según la región y tipos seleccionados
+    function actualizarGestionesIES() {
+        console.log("Actualizando gestiones IES");
+
+        const regionSeleccionada = document.getElementById('regionIES').value;
+
+        // Eliminar todos los checkboxes de Gestión IES existentes
+        document.querySelectorAll('input[name="gestionIES"]').forEach(checkbox => {
+            checkbox.parentElement.remove();
+        });
+
+        // Obtener el contenedor donde agregaremos los nuevos checkboxes
+        const gestionIESSection = document.querySelector('#seleccionForm div:nth-child(6)');
+        const gestionesContainer = gestionIESSection.querySelector('div') || gestionIESSection;
+
+        console.log("Contenedor de gestiones IES:", gestionesContainer);
+
+        // Obtener los tipos seleccionados
+        const tiposSeleccionados = Array.from(
+            document.querySelectorAll('input[name="tipoIES"]:checked')
+        ).map(cb => cb.dataset.tipo);
+
+        console.log("Tipos seleccionados para filtrar gestiones:", tiposSeleccionados);
+
+        // Filtrar IES por región y tipos seleccionados
+        let iesFiltradas = iesData;
+
+        if (regionSeleccionada) {
+            iesFiltradas = iesFiltradas.filter(ies => ies.regionIES === regionSeleccionada);
+        }
+
+        if (tiposSeleccionados.length > 0) {
+            iesFiltradas = iesFiltradas.filter(ies => tiposSeleccionados.includes(ies.tipoIES));
+        }
+
+        // Obtener las gestiones únicas disponibles
+        const gestionesDisponibles = [...new Set(iesFiltradas.map(ies => ies.gestionIES))];
+        console.log("Gestiones disponibles:", gestionesDisponibles);
+
+        // Crear los nuevos checkboxes
+        gestionesDisponibles.forEach(gestion => {
+            const label = document.createElement('label');
+            label.style.marginRight = '10px'; // Agregar espacio entre los checkboxes
+
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.name = 'gestionIES';
+            input.value = gestion.toLowerCase();
+            input.dataset.gestion = gestion;
+
+            // Agregar evento de cambio
+            input.addEventListener('change', function () {
+                console.log("Gestión seleccionada:", gestion);
+                filtrarIES();
+            });
+
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(' ' + gestion));
+
+            gestionesContainer.appendChild(label);
+        });
+    }
+
+    // Función para filtrar IES según todos los criterios seleccionados
+    function filtrarIES() {
+        console.log("Filtrando IES");
+
+        const regionSeleccionada = document.getElementById('regionIES').value;
+
+        // Obtener los tipos y gestiones seleccionados
+        const tiposSeleccionados = Array.from(
+            document.querySelectorAll('input[name="tipoIES"]:checked')
+        ).map(cb => cb.dataset.tipo);
+
+        const gestionesSeleccionadas = Array.from(
+            document.querySelectorAll('input[name="gestionIES"]:checked')
+        ).map(cb => cb.dataset.gestion);
+
+        console.log("Filtrando por región:", regionSeleccionada);
+        console.log("Filtrando por tipos:", tiposSeleccionados);
+        console.log("Filtrando por gestiones:", gestionesSeleccionadas);
+
+        // Aplicar filtros encadenados
+        let iesFiltradas = iesData;
+
+        // Filtrar por región
+        if (regionSeleccionada) {
+            iesFiltradas = iesFiltradas.filter(ies => ies.regionIES === regionSeleccionada);
+            console.log("Después de filtrar por región:", iesFiltradas.length);
+        }
+
+        // Filtrar por tipos seleccionados
+        if (tiposSeleccionados.length > 0) {
+            iesFiltradas = iesFiltradas.filter(ies => tiposSeleccionados.includes(ies.tipoIES));
+            console.log("Después de filtrar por tipos:", iesFiltradas.length);
+        }
+
+        // Filtrar por gestiones seleccionadas
+        if (gestionesSeleccionadas.length > 0) {
+            iesFiltradas = iesFiltradas.filter(ies => gestionesSeleccionadas.includes(ies.gestionIES));
+            console.log("Después de filtrar por gestiones:", iesFiltradas.length);
+        }
+
+        // Actualizar el selector de IES con las filtradas
+        iesSelect.innerHTML = '<option value="">Selecciona una IES</option>';
+
+        // Ordenar IES por nombre para facilitar la búsqueda
+        iesFiltradas.sort((a, b) => a.nombreIES.localeCompare(b.nombreIES));
+
+        console.log("Total de IES filtradas:", iesFiltradas.length);
+
+        // Mostrar las primeras 5 IES filtradas para depuración
+        console.log("Ejemplos de IES filtradas:", iesFiltradas.slice(0, 5).map(ies => ies.nombreIES));
+
+        // Añadir cada IES como opción
+        iesFiltradas.forEach(ies => {
             const option = document.createElement('option');
             option.value = ies.nombreIES;
             option.textContent = ies.nombreIES;
             iesSelect.appendChild(option);
         });
-    }
+
+        // Ocultar la información de IES al cambiar los filtros
+        iesInfo.style.display = 'none';
+    }//Hasta aqui se agrego para la carga de regiones
 
     // Función para mostrar la información de la IES seleccionada
     function mostrarInfoIES(ies) {
+        console.log("Mostrando información de IES:", ies);
+
+        // Obtener los elementos antes de asignar valores
+        const regionIESField = document.querySelector('#iesInfo input#regionIES');
+
+        // Asignar valores a los campos
         document.getElementById('codigoTipoIES').value = ies.codigoTipoIES;
         document.getElementById('tipoIES').value = ies.tipoIES;
-        document.getElementById('regionIES').value = ies.regionIES;
+
+        // Asignar la región directamente al campo correcto
+        if (regionIESField) {
+            regionIESField.value = ies.regionIES;
+        } else {
+            console.error("No se encontró el campo regionIES en el formulario de información");
+        }
+
         document.getElementById('siglasIES').value = ies.siglasIES;
         document.getElementById('topIES').value = ies.topIES;
         document.getElementById('rankingIES').value = ies.rankingIES;
@@ -463,6 +675,12 @@ document.addEventListener('DOMContentLoaded', function () {
         resultadoSeleccion.innerHTML = '';
         iesInfo.style.display = 'none';
         puntajePreseleccionError.textContent = '';
+
+        // Reinicializar los filtros
+        cargarRegiones();
+        actualizarTiposIES();
+        actualizarGestionesIES();
+        filtrarIES();
     });
 
     // Evento para cuando se seleccione una IES
