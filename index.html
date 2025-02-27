@@ -43,8 +43,10 @@
                     <div class="dropdown">
                         <span class="dropdown-toggle">Herramientas</span>
                         <div class="dropdown-menu">
-                            <a href="#preseleccion" onclick="switchTab('#preseleccion', event)">Calculadora Preselección</a>
+                            <a href="#preseleccion" onclick="switchTab('#preseleccion', event)">Calculadora
+                                Preselección</a>
                             <a href="#seleccion" onclick="switchTab('#seleccion', event)">Calculadora Selección</a>
+                            <a href="#pao" onclick="switchTab('#pao', event)">PAO</a>
                             <a href="#puntajes" onclick="switchTab('#puntajes', event)">Puntajes Mínimos</a>
                         </div>
                     </div>
@@ -87,7 +89,7 @@
 
         <!-- Contenido de las secciones -->
         <div class="container">
-            
+
             <!-- Sección Inicio -->
             <section id="inicio" class="tab-pane section">
                 <div class="container text-center">
@@ -292,9 +294,8 @@
                         <form id="preseleccionForm">
                             <div class="form-group">
                                 <label for="nombre">Tu nombre:</label>
-                                <input type="text" id="nombre" name="nombre" required maxlength="50" 
-                                       placeholder="Ingresa tu nombre" 
-                                       style="height: 48px; padding: 10px; width: 100%;">
+                                <input type="text" id="nombre" name="nombre" required maxlength="50"
+                                    placeholder="Ingresa tu nombre" style="height: 48px; padding: 10px; width: 100%;">
                             </div>
 
                             <div class="form-group">
@@ -449,7 +450,8 @@
 
                             <div class="form-group">
                                 <label for="puntajePreseleccion">(PS) Puntaje de Preselección:</label>
-                                <input type="number" id="puntajePreseleccion" name="puntajePreseleccion" min="0" max="180" required placeholder="Ingresa un número entre 0 y 180">
+                                <input type="number" id="puntajePreseleccion" name="puntajePreseleccion" min="0"
+                                    max="180" required placeholder="Ingresa un número entre 0 y 180">
                                 <p id="puntajePreseleccionError" class="error-message"></p>
                                 <p class="input-hint">Ingresa un número entre 0 y 180.</p>
                             </div>
@@ -548,7 +550,8 @@
                             </div>
 
                             <button type="submit" class="btn-custom">Calcular Puntaje de Selección</button>
-                            <button type="button" id="limpiarFormSeleccion" class="btn-custom btn-secondary">Limpiar Formulario</button>
+                            <button type="button" id="limpiarFormSeleccion" class="btn-custom btn-secondary">Limpiar
+                                Formulario</button>
                         </form>
 
                         <div id="resultadoSeleccion" class="resultado-container"></div>
@@ -558,6 +561,130 @@
                                 <option value="pdf">PDF</option>
                             </select>
                             <button id="descargarResultadoSeleccion" class="btn-custom">Descargar Resultado</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección PAO -->
+            <section id="pao" class="tab-pane section">
+                <div class="container text-center">
+                    <h2>Puntos Adicionales por Oferta (PAO)</h2>
+
+                    <div class="about-me-intro">
+                        <p>Explora las carreras e instituciones que ofrecen puntos adicionales a tu puntaje de selección
+                            en Beca 18.</p>
+                    </div>
+
+                    <div class="presentation-container section-bg">
+                        <!-- Filtros -->
+                        <div class="pao-filters">
+                            <!-- Buscador general -->
+                            <div class="search-container">
+                                <input type="text" id="paoBuscador"
+                                    placeholder="Buscar por carrera, institución o región..." class="pao-search">
+                            </div>
+
+                            <!-- Filtro por Grupo de Carrera -->
+                            <div class="form-group">
+                                <label for="grupoCarrera">Grupo de Carrera:</label>
+                                <select id="grupoCarrera" class="form-select">
+                                    <option value="">Todos los grupos</option>
+                                    <!-- Opciones cargadas dinámicamente -->
+                                </select>
+                            </div>
+
+                            <!-- Filtros adicionales -->
+                            <div class="additional-filters">
+                                <h4>Tipo de IES:</h4>
+                                <div id="tipoIESContainer" class="checkbox-container">
+                                    <div class="checkbox-group">
+                                        <label><input type="checkbox" name="tipoIES" value="UNIVERSIDAD">
+                                            Universidad</label>
+                                        <label><input type="checkbox" name="tipoIES" value="INSTITUTO">
+                                            Instituto</label>
+                                        <label><input type="checkbox" name="tipoIES" value="ESCUELA PEDAGOGICA"> Escuela
+                                            Pedagógica</label>
+                                        <label><input type="checkbox" name="tipoIES" value="ESCUELA TECNOLOGICA">
+                                            Escuela Tecnológica</label>
+                                    </div>
+                                </div>
+
+                                <h4>Gestión de IES:</h4>
+                                <div id="gestionIESContainer" class="checkbox-container">
+                                    <div class="checkbox-group">
+                                        <label><input type="checkbox" name="gestionIES" value="PÚBLICA"> Pública</label>
+                                        <label><input type="checkbox" name="gestionIES" value="PRIVADA"> Privada</label>
+                                        <label><input type="checkbox" name="gestionIES" value="PRIVADA ASOCIATIVA">
+                                            Privada Asociativa</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botones de acción -->
+                            <div class="filter-actions">
+                                <button id="aplicarFiltros" class="btn-custom">Aplicar Filtros</button>
+                                <button id="limpiarFiltros" class="btn-custom btn-secondary">Limpiar Filtros</button>
+                            </div>
+                        </div>
+
+                        <!-- Vista de datos -->
+                        <div class="view-options">
+                            <span>Vista:</span>
+                            <label class="view-option">
+                                <input type="radio" name="viewType" value="simple" checked> Simple
+                            </label>
+                            <label class="view-option">
+                                <input type="radio" name="viewType" value="advanced"> Avanzada
+                            </label>
+                        </div>
+
+                        <!-- Resultados -->
+                        <div class="pao-results-container">
+                            <div id="resultadosContador" class="results-counter">Mostrando 0 resultados</div>
+
+                            <!-- Tabla para vista simple -->
+                            <table id="paoTableSimple" class="pao-table">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo IES</th>
+                                        <th>Gestión</th>
+                                        <th>Región</th>
+                                        <th>Institución</th>
+                                        <th>Puntos PAO</th>
+                                        <th>Detalles</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Las filas se llenarán dinámicamente con JavaScript -->
+                                </tbody>
+                            </table>
+
+                            <!-- Tabla para vista avanzada (inicialmente oculta) -->
+                            <table id="paoTableAdvanced" class="pao-table" style="display: none;">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo IES</th>
+                                        <th>Región</th>
+                                        <th>Institución</th>
+                                        <th>Carrera</th>
+                                        <th>Top IES</th>
+                                        <th>Ranking</th>
+                                        <th>Pts. Ranking</th>
+                                        <th>Gestión</th>
+                                        <th>Pts. Gestión</th>
+                                        <th>Ratio Select.</th>
+                                        <th>Pts. Select.</th>
+                                        <th>Pts. PAO</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Las filas se llenarán dinámicamente con JavaScript -->
+                                </tbody>
+                            </table>
+
+                            <div id="noResultsMessage" class="no-results-message" style="display: none;">No se
+                                encontraron resultados con los filtros actuales.</div>
                         </div>
                     </div>
                 </div>
@@ -656,7 +783,8 @@
                 <div class="social-icons">
                     <a href="https://www.facebook.com/JuffytoSegovia" target="_blank"><i
                             class="fab fa-facebook"></i></a>
-                    <a href="https://whatsapp.com/channel/0029VaycudpKGGGJXN1jyt2f" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://whatsapp.com/channel/0029VaycudpKGGGJXN1jyt2f" target="_blank"><i
+                            class="fab fa-whatsapp"></i></a>
                     <a href="https://www.instagram.com/juffyto/" target="_blank"><i class="fab fa-instagram"></i></a>
                     <a href="https://www.linkedin.com/in/juniorsegovia/" target="_blank"><i
                             class="fab fa-linkedin"></i></a>

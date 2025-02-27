@@ -1,0 +1,310 @@
+[
+    {
+        "CodigoGrupo": "011",
+        "GrupoCarrera": "Peluquería y Tratamientos de Belleza"
+    },
+    {
+        "CodigoGrupo": "012",
+        "GrupoCarrera": "Hotelería, Restaurantes y Gastronomía"
+    },
+    {
+        "CodigoGrupo": "013",
+        "GrupoCarrera": "Deporte"
+    },
+    {
+        "CodigoGrupo": "014",
+        "GrupoCarrera": "Viajes, Turismo y Actividades Recreativas"
+    },
+    {
+        "CodigoGrupo": "022",
+        "GrupoCarrera": "Salud y Protección Laboral"
+    },
+    {
+        "CodigoGrupo": "111",
+        "GrupoCarrera": "Educación Inicial"
+    },
+    {
+        "CodigoGrupo": "112",
+        "GrupoCarrera": "Educación Primaria"
+    },
+    {
+        "CodigoGrupo": "113",
+        "GrupoCarrera": "Educación Secundaria"
+    },
+    {
+        "CodigoGrupo": "120",
+        "GrupoCarrera": "Educación con asignatura de especialización (excepto Educación Física, Artística, y Superior y Tecnológica)"
+    },
+    {
+        "CodigoGrupo": "122",
+        "GrupoCarrera": "Educación Física"
+    },
+    {
+        "CodigoGrupo": "123",
+        "GrupoCarrera": "Educación Artística"
+    },
+    {
+        "CodigoGrupo": "124",
+        "GrupoCarrera": "Educación Superior y Tecnológica"
+    },
+    {
+        "CodigoGrupo": "130",
+        "GrupoCarrera": "Educación Especial"
+    },
+    {
+        "CodigoGrupo": "140",
+        "GrupoCarrera": "Gestión y Calidad Educativa"
+    },
+    {
+        "CodigoGrupo": "199",
+        "GrupoCarrera": "Otros Programas en Educación"
+    },
+    {
+        "CodigoGrupo": "201",
+        "GrupoCarrera": "Técnicas Audiovisuales y de Producción para Medios de Comunicación"
+    },
+    {
+        "CodigoGrupo": "202",
+        "GrupoCarrera": "Diseño Industrial, de Modas e Interiores"
+    },
+    {
+        "CodigoGrupo": "203",
+        "GrupoCarrera": "Arte"
+    },
+    {
+        "CodigoGrupo": "204",
+        "GrupoCarrera": "Artesanía y Manualidades"
+    },
+    {
+        "CodigoGrupo": "205",
+        "GrupoCarrera": "Música y Artes Escénicas"
+    },
+    {
+        "CodigoGrupo": "206",
+        "GrupoCarrera": "Religión y Teología"
+    },
+    {
+        "CodigoGrupo": "207",
+        "GrupoCarrera": "Historia y Arqueología"
+    },
+    {
+        "CodigoGrupo": "208",
+        "GrupoCarrera": "Filosofía y Ética"
+    },
+    {
+        "CodigoGrupo": "231",
+        "GrupoCarrera": "Idiomas"
+    },
+    {
+        "CodigoGrupo": "232",
+        "GrupoCarrera": "Lingüística y Literatura"
+    },
+    {
+        "CodigoGrupo": "301",
+        "GrupoCarrera": "Economía"
+    },
+    {
+        "CodigoGrupo": "302",
+        "GrupoCarrera": "Ciencias Políticas"
+    },
+    {
+        "CodigoGrupo": "303",
+        "GrupoCarrera": "Psicología"
+    },
+    {
+        "CodigoGrupo": "304",
+        "GrupoCarrera": "Ciencias de la Comunicación y Periodismo"
+    },
+    {
+        "CodigoGrupo": "305",
+        "GrupoCarrera": "Bibliotecología y Archivo"
+    },
+    {
+        "CodigoGrupo": "314",
+        "GrupoCarrera": "Sociología y Estudios Culturales"
+    },
+    {
+        "CodigoGrupo": "315",
+        "GrupoCarrera": "Antropología"
+    },
+    {
+        "CodigoGrupo": "401",
+        "GrupoCarrera": "Contabilidad e Impuestos"
+    },
+    {
+        "CodigoGrupo": "402",
+        "GrupoCarrera": "Gestión Financiera, Administración Bancaria y Seguros"
+    },
+    {
+        "CodigoGrupo": "403",
+        "GrupoCarrera": "Gestión y Administración"
+    },
+    {
+        "CodigoGrupo": "404",
+        "GrupoCarrera": "Marketing y Publicidad"
+    },
+    {
+        "CodigoGrupo": "405",
+        "GrupoCarrera": "Derecho"
+    },
+    {
+        "CodigoGrupo": "415",
+        "GrupoCarrera": "Secretariado y Trabajo de Oficina"
+    },
+    {
+        "CodigoGrupo": "416",
+        "GrupoCarrera": "Negocios Internacionales"
+    },
+    {
+        "CodigoGrupo": "417",
+        "GrupoCarrera": "Administración Pública"
+    },
+    {
+        "CodigoGrupo": "418",
+        "GrupoCarrera": "Competencias Laborales"
+    },
+    {
+        "CodigoGrupo": "419",
+        "GrupoCarrera": "Otros Programas en Administración y Comercio"
+    },
+    {
+        "CodigoGrupo": "501",
+        "GrupoCarrera": "Biología"
+    },
+    {
+        "CodigoGrupo": "502",
+        "GrupoCarrera": "Ecología y Medio Ambiente"
+    },
+    {
+        "CodigoGrupo": "504",
+        "GrupoCarrera": "Química"
+    },
+    {
+        "CodigoGrupo": "505",
+        "GrupoCarrera": "Ciencias de la Tierra"
+    },
+    {
+        "CodigoGrupo": "506",
+        "GrupoCarrera": "Física"
+    },
+    {
+        "CodigoGrupo": "541",
+        "GrupoCarrera": "Matemática"
+    },
+    {
+        "CodigoGrupo": "542",
+        "GrupoCarrera": "Estadística"
+    },
+    {
+        "CodigoGrupo": "543",
+        "GrupoCarrera": "Investigación Operativa"
+    },
+    {
+        "CodigoGrupo": "601",
+        "GrupoCarrera": "Ciencias de la Computación"
+    },
+    {
+        "CodigoGrupo": "602",
+        "GrupoCarrera": "Sistemas y Cómputo"
+    },
+    {
+        "CodigoGrupo": "603",
+        "GrupoCarrera": "Telecomunicaciones"
+    },
+    {
+        "CodigoGrupo": "701",
+        "GrupoCarrera": "Electricidad y Energía"
+    },
+    {
+        "CodigoGrupo": "702",
+        "GrupoCarrera": "Electrónica y Automatización"
+    },
+    {
+        "CodigoGrupo": "703",
+        "GrupoCarrera": "Mecánica y Metalúrgica"
+    },
+    {
+        "CodigoGrupo": "704",
+        "GrupoCarrera": "Vehículos, Barcos y Aeronaves Motorizadas"
+    },
+    {
+        "CodigoGrupo": "721",
+        "GrupoCarrera": "Industrias Alimentarias"
+    },
+    {
+        "CodigoGrupo": "722",
+        "GrupoCarrera": "Industria y Productos Transformados (excepto alimentos, textil, agro, minas y petróleo)"
+    },
+    {
+        "CodigoGrupo": "723",
+        "GrupoCarrera": "Producción Textil y Confecciones"
+    },
+    {
+        "CodigoGrupo": "724",
+        "GrupoCarrera": "Minería y Extracción"
+    },
+    {
+        "CodigoGrupo": "731",
+        "GrupoCarrera": "Arquitectura y Urbanismo"
+    },
+    {
+        "CodigoGrupo": "732",
+        "GrupoCarrera": "Construcción e Ingeniería Civil"
+    },
+    {
+        "CodigoGrupo": "733",
+        "GrupoCarrera": "Ingeniería Sanitaria"
+    },
+    {
+        "CodigoGrupo": "801",
+        "GrupoCarrera": "Producción Agrícola y Ganadera"
+    },
+    {
+        "CodigoGrupo": "821",
+        "GrupoCarrera": "Silvicultura"
+    },
+    {
+        "CodigoGrupo": "831",
+        "GrupoCarrera": "Pesca"
+    },
+    {
+        "CodigoGrupo": "841",
+        "GrupoCarrera": "Veterinaria"
+    },
+    {
+        "CodigoGrupo": "911",
+        "GrupoCarrera": "Odontología"
+    },
+    {
+        "CodigoGrupo": "912",
+        "GrupoCarrera": "Medicina"
+    },
+    {
+        "CodigoGrupo": "913",
+        "GrupoCarrera": "Enfermería"
+    },
+    {
+        "CodigoGrupo": "914",
+        "GrupoCarrera": "Obstetricia"
+    },
+    {
+        "CodigoGrupo": "915",
+        "GrupoCarrera": "Tecnología de Diagnóstico y Tratamiento Médico"
+    },
+    {
+        "CodigoGrupo": "916",
+        "GrupoCarrera": "Terapia y Rehabilitación"
+    },
+    {
+        "CodigoGrupo": "917",
+        "GrupoCarrera": "Farmacia"
+    },
+    {
+        "CodigoGrupo": "918",
+        "GrupoCarrera": "Nutrición"
+    },
+    {
+        "CodigoGrupo": "923",
+        "GrupoCarrera": "Trabajo Social"
+    }
+]

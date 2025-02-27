@@ -801,7 +801,8 @@ footer .social-icons a:hover {
   text-decoration: none;
   font-size: 0.9rem;
   cursor: pointer;
-  display: inline-block; /* Asegurarse de que tenga display correcto */
+  display: inline-block;
+  /* Asegurarse de que tenga display correcto */
 }
 
 .dropdown-toggle:hover,
@@ -815,7 +816,7 @@ footer .social-icons a:hover {
   position: absolute;
   background-color: var(--color-dark-blue);
   min-width: 200px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   border-radius: 5px;
   padding: 5px 0;
@@ -845,7 +846,7 @@ footer .social-icons a:hover {
   .dropdown {
     width: 100%;
   }
-  
+
   .dropdown-toggle {
     width: 100%;
     text-align: left;
@@ -853,29 +854,154 @@ footer .social-icons a:hover {
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .dropdown-menu {
     position: static;
     width: 100%;
     display: none;
     padding-left: 15px;
   }
-  
+
   .dropdown-menu a {
     padding-left: 25px;
   }
-  
+
   /* Este es el cambio más importante para móviles */
   .dropdown.active .dropdown-menu {
     display: block;
   }
-  
+
   /* Importante: asegúrate que el hover no active el menú en móviles */
   .dropdown:hover .dropdown-menu {
     display: none;
   }
-  
+
   .dropdown.active:hover .dropdown-menu {
     display: block;
+  }
+}
+
+/* Estilos para la sección PAO */
+#pao .pao-filters {
+  margin-bottom: 20px;
+}
+
+#pao .search-container {
+  margin-bottom: 15px;
+}
+
+#pao .pao-search {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#pao .checkbox-container {
+  margin: 15px 0;
+}
+
+#pao .checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#pao .checkbox-group label {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+#pao .filter-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#pao .view-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 15px;
+}
+
+#pao .results-counter {
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+#pao .pao-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+#pao .pao-table th,
+#pao .pao-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+#pao .pao-table th {
+  background-color: var(--color-blue);
+  color: white;
+  position: sticky;
+  top: 0;
+}
+
+#pao .pao-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#pao .pao-table tr:hover {
+  background-color: #ddd;
+}
+
+#pao .btn-detail {
+  background-color: var(--color-yellow);
+  color: var(--color-dark-blue);
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+#pao .btn-detail:hover {
+  background-color: var(--color-orange);
+}
+
+#pao .no-results-message {
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  color: #666;
+}
+
+/* Responsividad para tablas en móviles */
+@media (max-width: 768px) {
+  #pao .pao-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  #pao .checkbox-group {
+    flex-direction: column;
+  }
+
+  #pao .filter-actions {
+    flex-direction: column;
+  }
+
+  #pao .filter-actions button {
+    width: 100%;
   }
 }
