@@ -1,12 +1,15 @@
 // Función para cambiar de pestaña
 function switchTab(tabId, event) {
     event.preventDefault();
+
     // Ocultar todas las secciones
     document.querySelectorAll('.tab-pane').forEach(function (pane) {
         pane.style.display = 'none';
     });
+
     // Mostrar la sección seleccionada
     document.querySelector(tabId).style.display = 'block';
+
     // Mostrar/ocultar el carrusel según la sección
     const carrusel = document.getElementById('carrusel');
     if (tabId === '#inicio') {
@@ -14,11 +17,22 @@ function switchTab(tabId, event) {
     } else {
         carrusel.style.display = 'none';
     }
+
     // Actualizar la clase activa en el menú de navegación
-    document.querySelectorAll('nav a').forEach(function (link) {
+    document.querySelectorAll('nav a, .dropdown-toggle').forEach(function (link) {
         link.classList.remove('active-nav');
     });
+
+    // Si el enlace es un submenú, marcar también el elemento padre
+    const parentDropdown = event.currentTarget.closest('.dropdown');
+    if (parentDropdown) {
+        parentDropdown.querySelector('.dropdown-toggle').classList.add('active-nav');
+    }
+
     event.currentTarget.classList.add('active-nav');
+
+    // Cerrar el menú móvil si está abierto
+    document.querySelector('.main-nav').classList.remove('active');
 
     // Desplazar la página al inicio
     window.scrollTo({
@@ -56,6 +70,8 @@ function initializePage() {
 function setupMobileMenu() {
     const menuToggle = document.querySelector('.menu-toggle');
     const mainNav = document.querySelector('.main-nav');
+    const dropdownToggle = document.querySelector('.dropdown-toggle');
+    const dropdown = document.querySelector('.dropdown');
 
     if (menuToggle && mainNav) {
         menuToggle.addEventListener('click', function () {
@@ -69,6 +85,17 @@ function setupMobileMenu() {
 
             if (!isClickInsideNav && !isClickOnToggle && mainNav.classList.contains('active')) {
                 mainNav.classList.remove('active');
+            }
+        });
+    }
+
+    // Manejar clic en el toggle del dropdown en móviles
+    if (dropdownToggle && dropdown) {
+        dropdownToggle.addEventListener('click', function (event) {
+            // Solo en vista móvil
+            if (window.innerWidth <= 768) {
+                dropdown.classList.toggle('active');
+                event.stopPropagation(); // Prevenir que se propague el evento
             }
         });
     }

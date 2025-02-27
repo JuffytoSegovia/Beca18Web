@@ -537,14 +537,16 @@ footer .social-icons a:hover {
 #preseleccion .btn-secondary,
 #seleccion .btn-secondary {
   background-color: #6c757d;
-  color: #333; /* Color de texto normal */
+  color: #333;
+  /* Color de texto normal */
   margin-top: 10px;
 }
 
 #preseleccion .btn-secondary:hover,
 #seleccion .btn-secondary:hover {
   background-color: #5a6268;
-  color: white; /* Cambio a texto blanco al pasar el cursor */
+  color: white;
+  /* Cambio a texto blanco al pasar el cursor */
 }
 
 .resultado-container {
@@ -783,3 +785,97 @@ footer .social-icons a:hover {
   border-radius: 5px;
 }
 
+/* Estilos para el menú desplegable */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  color: white;
+  margin-right: 10px;
+  font-weight: 500;
+  transition: color 0.3s, background-color 0.3s;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-block; /* Asegurarse de que tenga display correcto */
+}
+
+.dropdown-toggle:hover,
+.dropdown-toggle.active-nav {
+  color: var(--color-yellow);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: var(--color-dark-blue);
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1000;
+  border-radius: 5px;
+  padding: 5px 0;
+  margin-top: 5px;
+}
+
+.dropdown-menu a {
+  color: white;
+  padding: 8px 15px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.2s;
+  font-size: 0.9rem;
+}
+
+.dropdown-menu a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-yellow);
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Ajuste para dispositivos móviles */
+@media (max-width: 768px) {
+  .dropdown {
+    width: 100%;
+  }
+  
+  .dropdown-toggle {
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    display: none;
+    padding-left: 15px;
+  }
+  
+  .dropdown-menu a {
+    padding-left: 25px;
+  }
+  
+  /* Este es el cambio más importante para móviles */
+  .dropdown.active .dropdown-menu {
+    display: block;
+  }
+  
+  /* Importante: asegúrate que el hover no active el menú en móviles */
+  .dropdown:hover .dropdown-menu {
+    display: none;
+  }
+  
+  .dropdown.active:hover .dropdown-menu {
+    display: block;
+  }
+}
