@@ -7,7 +7,6 @@ function switchTab(tabId, event) {
     });
     // Mostrar la sección seleccionada
     document.querySelector(tabId).style.display = 'block';
-
     // Mostrar/ocultar el carrusel según la sección
     const carrusel = document.getElementById('carrusel');
     if (tabId === '#inicio') {
@@ -15,12 +14,17 @@ function switchTab(tabId, event) {
     } else {
         carrusel.style.display = 'none';
     }
-
     // Actualizar la clase activa en el menú de navegación
     document.querySelectorAll('nav a').forEach(function (link) {
         link.classList.remove('active-nav');
     });
     event.currentTarget.classList.add('active-nav');
+
+    // Desplazar la página al inicio
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
 }
 
 // Función para inicializar la página

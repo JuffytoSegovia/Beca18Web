@@ -534,9 +534,17 @@ footer .social-icons a:hover {
   margin-top: 20px;
 }
 
-#preseleccion .btn-secondary {
+#preseleccion .btn-secondary,
+#seleccion .btn-secondary {
   background-color: #6c757d;
+  color: #333; /* Color de texto normal */
   margin-top: 10px;
+}
+
+#preseleccion .btn-secondary:hover,
+#seleccion .btn-secondary:hover {
+  background-color: #5a6268;
+  color: white; /* Cambio a texto blanco al pasar el cursor */
 }
 
 .resultado-container {
