@@ -101,6 +101,36 @@ function setupMobileMenu() {
     }
 }
 
+// Control del menú desplegable (tanto en móvil como en escritorio)
+const dropdownToggle = document.querySelector('.dropdown-toggle');
+const dropdown = document.querySelector('.dropdown');
+
+if (dropdownToggle && dropdown) {
+    // Al hacer clic en el dropdown-toggle
+    dropdownToggle.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        // Alternar la clase 'open' para mostrar/ocultar el menú
+        dropdown.classList.toggle('open');
+    });
+    
+    // Cerrar el dropdown cuando se hace clic fuera de él
+    document.addEventListener('click', function(event) {
+        if (!dropdown.contains(event.target)) {
+            dropdown.classList.remove('open');
+        }
+    });
+    
+    // Permitir que los elementos del menú desplegable funcionen
+    const dropdownItems = dropdown.querySelectorAll('.dropdown-menu a');
+    dropdownItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            dropdown.classList.remove('open');
+        });
+    });
+}
+
 // Ejecutar la inicialización cuando se carga la página
 window.onload = function () {
     initializePage();
