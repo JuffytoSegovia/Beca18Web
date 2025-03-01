@@ -569,13 +569,13 @@
             <!-- Sección PAO -->
             <section id="pao" class="tab-pane section">
                 <div class="container text-center">
-                    <h2>Puntos Adicionales por Oferta (PAO)</h2>
-
+                    <h2>Plataforma de Apoyo y Orientación (PAO)</h2>
+            
                     <div class="about-me-intro">
                         <p>Explora las carreras e instituciones que ofrecen puntos adicionales a tu puntaje de selección
                             en Beca 18.</p>
                     </div>
-
+            
                     <div class="presentation-container section-bg">
                         <!-- Filtros -->
                         <div class="pao-filters">
@@ -584,7 +584,7 @@
                                 <input type="text" id="paoBuscador"
                                     placeholder="Buscar por carrera, institución o región..." class="pao-search">
                             </div>
-
+            
                             <!-- Filtro por Grupo de Carrera -->
                             <div class="form-group">
                                 <label for="grupoCarrera">Grupo de Carrera:</label>
@@ -593,41 +593,27 @@
                                     <!-- Opciones cargadas dinámicamente -->
                                 </select>
                             </div>
-
+            
                             <!-- Filtros adicionales -->
                             <div class="additional-filters">
                                 <h4>Tipo de IES:</h4>
                                 <div id="tipoIESContainer" class="checkbox-container">
-                                    <div class="checkbox-group">
-                                        <label><input type="checkbox" name="tipoIES" value="UNIVERSIDAD">
-                                            Universidad</label>
-                                        <label><input type="checkbox" name="tipoIES" value="INSTITUTO">
-                                            Instituto</label>
-                                        <label><input type="checkbox" name="tipoIES" value="ESCUELA PEDAGOGICA"> Escuela
-                                            Pedagógica</label>
-                                        <label><input type="checkbox" name="tipoIES" value="ESCUELA TECNOLOGICA">
-                                            Escuela Tecnológica</label>
-                                    </div>
+                                    <!-- Los checkboxes se generarán dinámicamente -->
                                 </div>
-
+            
                                 <h4>Gestión de IES:</h4>
                                 <div id="gestionIESContainer" class="checkbox-container">
-                                    <div class="checkbox-group">
-                                        <label><input type="checkbox" name="gestionIES" value="PÚBLICA"> Pública</label>
-                                        <label><input type="checkbox" name="gestionIES" value="PRIVADA"> Privada</label>
-                                        <label><input type="checkbox" name="gestionIES" value="PRIVADA ASOCIATIVA">
-                                            Privada Asociativa</label>
-                                    </div>
+                                    <!-- Los checkboxes se generarán dinámicamente -->
                                 </div>
                             </div>
-
+            
                             <!-- Botones de acción -->
                             <div class="filter-actions">
-                                <button id="aplicarFiltros" class="btn-custom">Aplicar Filtros</button>
-                                <button id="limpiarFiltros" class="btn-custom btn-secondary">Limpiar Filtros</button>
+                                <button id="aplicarFiltros" class="btn-custom">APLICAR FILTROS</button>
+                                <button id="limpiarFiltros" class="btn-custom btn-secondary">LIMPIAR FILTROS</button>
                             </div>
                         </div>
-
+            
                         <!-- Vista de datos -->
                         <div class="view-options">
                             <span>Vista:</span>
@@ -638,11 +624,11 @@
                                 <input type="radio" name="viewType" value="advanced"> Avanzada
                             </label>
                         </div>
-
+            
                         <!-- Resultados -->
                         <div class="pao-results-container">
                             <div id="resultadosContador" class="results-counter">Mostrando 0 resultados</div>
-
+            
                             <!-- Tabla para vista simple -->
                             <table id="paoTableSimple" class="pao-table">
                                 <thead>
@@ -652,14 +638,13 @@
                                         <th>Región</th>
                                         <th>Institución</th>
                                         <th>Puntos PAO</th>
-                                        <th>Detalles</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- Las filas se llenarán dinámicamente con JavaScript -->
                                 </tbody>
                             </table>
-
+            
                             <!-- Tabla para vista avanzada (inicialmente oculta) -->
                             <table id="paoTableAdvanced" class="pao-table" style="display: none;">
                                 <thead>
@@ -682,9 +667,10 @@
                                     <!-- Las filas se llenarán dinámicamente con JavaScript -->
                                 </tbody>
                             </table>
-
-                            <div id="noResultsMessage" class="no-results-message" style="display: none;">No se
-                                encontraron resultados con los filtros actuales.</div>
+            
+                            <div id="noResultsMessage" class="no-results-message" style="display: none;">
+                                No se encontraron resultados con los filtros actuales.
+                            </div>
                         </div>
                     </div>
                 </div>

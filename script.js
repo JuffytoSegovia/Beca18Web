@@ -996,14 +996,13 @@ document.addEventListener('DOMContentLoaded', function () {
         let gruposCarrera = [];
         let iesData = [];
         let filteredData = [];
-
+    
         // Elementos del DOM
-        let paoBuscador, grupoCarreraSelect, tipoIESCheckboxes, gestionIESCheckboxes;
-        let aplicarFiltrosBtn, limpiarFiltrosBtn, viewTypeRadios;
+        let paoBuscador, grupoCarreraSelect, aplicarFiltrosBtn, limpiarFiltrosBtn, viewTypeRadios;
         let resultadosContador, paoTableSimple, paoTableAdvanced, noResultsMessage;
-
-        // Inicialización cuando se carga la página
-        document.addEventListener('DOMContentLoaded', function () {
+    
+        // Esperar a que el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', function() {
             // Verificar si estamos en la sección PAO
             if (document.getElementById('pao')) {
                 inicializarElementos();
@@ -1015,8 +1014,6 @@ document.addEventListener('DOMContentLoaded', function () {
         function inicializarElementos() {
             paoBuscador = document.getElementById('paoBuscador');
             grupoCarreraSelect = document.getElementById('grupoCarrera');
-            tipoIESCheckboxes = document.querySelectorAll('input[name="tipoIES"]');
-            gestionIESCheckboxes = document.querySelectorAll('input[name="gestionIES"]');
             aplicarFiltrosBtn = document.getElementById('aplicarFiltros');
             limpiarFiltrosBtn = document.getElementById('limpiarFiltros');
             viewTypeRadios = document.querySelectorAll('input[name="viewType"]');
@@ -1029,6 +1026,12 @@ document.addEventListener('DOMContentLoaded', function () {
         // Cargar datos de los JSON
         async function cargarDatos() {
             try {
+                // Mostrar un indicador de carga
+                const resultadosContador = document.getElementById('resultadosContador');
+                if (resultadosContador) {
+                    resultadosContador.textContent = "Cargando datos...";
+                }
+
                 // Cargar datos de grupos de carrera
                 const gruposResponse = await fetch('grupo.json');
                 if (!gruposResponse.ok) {
@@ -1043,8 +1046,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 iesData = await iesResponse.json();
 
+                // Filtrar todos los datos inicialmente
+                filteredData = [...iesData];
+
                 // Inicializar la interfaz
                 inicializarInterfaz();
+
+                // Mostrar los datos en la vista simple por defecto
+                actualizarResultados();
 
             } catch (error) {
                 console.error('Error al cargar los datos:', error);
@@ -1055,73 +1064,171 @@ document.addEventListener('DOMContentLoaded', function () {
         // Inicializar la interfaz con los datos cargados
         function inicializarInterfaz() {
             // Llenar el combobox de grupos de carrera
-            gruposCarrera.sort((a, b) => a.GrupoCarrera.localeCompare(b.GrupoCarrera));
-            gruposCarrera.forEach(grupo => {
-                const option = document.createElement('option');
-                option.value = grupo.CodigoGrupo;
-                option.textContent = `${grupo.GrupoCarrera} (${grupo.CodigoGrupo})`;
-                grupoCarreraSelect.appendChild(option);
-            });
+            const grupoCarreraSelect = document.getElementById('grupoCarrera');
+            if (grupoCarreraSelect) {
+                // Limpiar opciones existentes
+                grupoCarreraSelect.innerHTML = '<option value="">Todos los grupos</option>';
+
+                // Ordenar los grupos por nombre
+                gruposCarrera.sort((a, b) => a.GrupoCarrera.localeCompare(b.GrupoCarrera));
+
+                // Añadir cada grupo como una opción
+                gruposCarrera.forEach(grupo => {
+                    const option = document.createElement('option');
+                    option.value = grupo.CodigoGrupo;
+                    option.textContent = `${grupo.GrupoCarrera} (${grupo.CodigoGrupo})`;
+                    grupoCarreraSelect.appendChild(option);
+                });
+            }
+
+            // Generar checkboxes para Tipo de IES
+            generarCheckboxesTipoIES();
+
+            // Generar checkboxes para Gestión de IES
+            generarCheckboxesGestionIES();
 
             // Configurar eventos
-            aplicarFiltrosBtn.addEventListener('click', aplicarFiltros);
-            limpiarFiltrosBtn.addEventListener('click', limpiarFiltros);
+            const aplicarFiltrosBtn = document.getElementById('aplicarFiltros');
+            if (aplicarFiltrosBtn) {
+                aplicarFiltrosBtn.addEventListener('click', aplicarFiltros);
+            }
+
+            const limpiarFiltrosBtn = document.getElementById('limpiarFiltros');
+            if (limpiarFiltrosBtn) {
+                limpiarFiltrosBtn.addEventListener('click', limpiarFiltros);
+            }
 
             // Evento para cambio de vista
+            const viewTypeRadios = document.querySelectorAll('input[name="viewType"]');
             viewTypeRadios.forEach(radio => {
                 radio.addEventListener('change', cambiarVista);
             });
+        }
 
-            // Aplicar filtros iniciales
-            aplicarFiltros();
+        // Generar checkboxes para Tipo de IES
+        function generarCheckboxesTipoIES() {
+            const tipoIESContainer = document.getElementById('tipoIESContainer');
+            if (!tipoIESContainer) return;
+
+            // Limpiar contenedor
+            tipoIESContainer.innerHTML = '';
+
+            // Obtener tipos únicos de IES
+            const tiposUnicos = [...new Set(iesData.map(item => item.tipoIES))].sort();
+
+            // Crear un div para contener los checkboxes
+            const checkboxGroup = document.createElement('div');
+            checkboxGroup.className = 'checkbox-group';
+
+            // Crear checkbox para cada tipo
+            tiposUnicos.forEach(tipo => {
+                if (!tipo) return; // Ignorar valores nulos o vacíos
+
+                const label = document.createElement('label');
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.name = 'tipoIES';
+                input.value = tipo;
+                input.dataset.tipo = tipo;
+
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(` ${tipo}`));
+                checkboxGroup.appendChild(label);
+            });
+
+            tipoIESContainer.appendChild(checkboxGroup);
+        }
+
+        // Generar checkboxes para Gestión de IES
+        function generarCheckboxesGestionIES() {
+            const gestionIESContainer = document.getElementById('gestionIESContainer');
+            if (!gestionIESContainer) return;
+
+            // Limpiar contenedor
+            gestionIESContainer.innerHTML = '';
+
+            // Obtener gestiones únicas de IES
+            const gestionesUnicas = [...new Set(iesData.map(item => item.gestionIES))].sort();
+
+            // Crear un div para contener los checkboxes
+            const checkboxGroup = document.createElement('div');
+            checkboxGroup.className = 'checkbox-group';
+
+            // Crear checkbox para cada gestión
+            gestionesUnicas.forEach(gestion => {
+                if (!gestion) return; // Ignorar valores nulos o vacíos
+
+                const label = document.createElement('label');
+                const input = document.createElement('input');
+                input.type = 'checkbox';
+                input.name = 'gestionIES';
+                input.value = gestion;
+                input.dataset.gestion = gestion;
+
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(` ${gestion}`));
+                checkboxGroup.appendChild(label);
+            });
+
+            gestionIESContainer.appendChild(checkboxGroup);
         }
 
         // Aplicar filtros y mostrar resultados
         function aplicarFiltros() {
             // Obtener valores de los filtros
-            const searchText = paoBuscador.value.toLowerCase();
-            const grupoSeleccionado = grupoCarreraSelect.value;
-
-            const tiposSeleccionados = Array.from(tipoIESCheckboxes)
-                .filter(cb => cb.checked)
+            const searchText = paoBuscador ? paoBuscador.value.toLowerCase() : '';
+            const grupoSeleccionado = grupoCarreraSelect ? grupoCarreraSelect.value : '';
+            
+            // Obtener checkboxes seleccionados (actualizados)
+            const tiposSeleccionados = Array.from(document.querySelectorAll('input[name="tipoIES"]:checked'))
                 .map(cb => cb.value);
-
-            const gestionesSeleccionadas = Array.from(gestionIESCheckboxes)
-                .filter(cb => cb.checked)
+            
+            const gestionesSeleccionadas = Array.from(document.querySelectorAll('input[name="gestionIES"]:checked'))
                 .map(cb => cb.value);
-
+            
             // Filtrar los datos
             filteredData = iesData.filter(item => {
                 // Filtrar por texto de búsqueda
                 const matchesSearch = searchText === '' ||
-                    item.nombreIES.toLowerCase().includes(searchText) ||
+                    (item.nombreIES && item.nombreIES.toLowerCase().includes(searchText)) ||
                     (item.carreraIES && item.carreraIES.toLowerCase().includes(searchText)) ||
-                    item.regionIES.toLowerCase().includes(searchText);
-
+                    (item.regionIES && item.regionIES.toLowerCase().includes(searchText));
+                
                 // Filtrar por grupo de carrera
                 const matchesGrupo = grupoSeleccionado === '' ||
                     item.CodigoGrupo === grupoSeleccionado;
-
+                
                 // Filtrar por tipo de IES
                 const matchesTipo = tiposSeleccionados.length === 0 ||
-                    tiposSeleccionados.includes(item.tipoIES);
-
+                    (item.tipoIES && tiposSeleccionados.includes(item.tipoIES));
+                
                 // Filtrar por gestión de IES
                 const matchesGestion = gestionesSeleccionadas.length === 0 ||
-                    gestionesSeleccionadas.includes(item.gestionIES);
-
+                    (item.gestionIES && gestionesSeleccionadas.includes(item.gestionIES));
+                
                 return matchesSearch && matchesGrupo && matchesTipo && matchesGestion;
             });
-
+            
             // Actualizar la visualización de resultados
             actualizarResultados();
         }
 
         // Actualizar la visualización de resultados
         function actualizarResultados() {
+            // Obtener elementos actualizados
+            const resultadosContador = document.getElementById('resultadosContador');
+            const paoTableSimple = document.getElementById('paoTableSimple');
+            const paoTableAdvanced = document.getElementById('paoTableAdvanced');
+            const noResultsMessage = document.getElementById('noResultsMessage');
+            
+            if (!resultadosContador || !paoTableSimple || !paoTableAdvanced || !noResultsMessage) {
+                console.error('No se encontraron elementos necesarios del DOM');
+                return;
+            }
+            
             // Actualizar contador de resultados
             resultadosContador.textContent = `Mostrando ${filteredData.length} resultados`;
-
+            
             // Mostrar mensaje de no resultados si corresponde
             if (filteredData.length === 0) {
                 noResultsMessage.style.display = 'block';
@@ -1129,66 +1236,70 @@ document.addEventListener('DOMContentLoaded', function () {
                 paoTableAdvanced.style.display = 'none';
                 return;
             }
-
+            
             noResultsMessage.style.display = 'none';
-
+            
             // Determinar qué vista mostrar
             const vistaAvanzada = document.querySelector('input[name="viewType"][value="advanced"]').checked;
-
+            
             // Limpiar tablas
             const simpleBody = paoTableSimple.querySelector('tbody');
             const advancedBody = paoTableAdvanced.querySelector('tbody');
-            simpleBody.innerHTML = '';
-            advancedBody.innerHTML = '';
-
+            
+            if (simpleBody) simpleBody.innerHTML = '';
+            if (advancedBody) advancedBody.innerHTML = '';
+            
             // Llenar la tabla correspondiente
             filteredData.forEach(item => {
                 // Crear fila para vista simple
-                const simpleRow = document.createElement('tr');
-                simpleRow.innerHTML = `
-                <td>${item.tipoIES || '-'}</td>
-                <td>${item.gestionIES || '-'}</td>
-                <td>${item.regionIES || '-'}</td>
-                <td>${item.nombreIES || '-'}</td>
-                <td>${item.puntosExtraPAO || '0'}</td>
-                <td><button class="btn-detail" data-ies="${item.nombreIES}" data-carrera="${item.carreraIES || ''}">Ver</button></td>
-            `;
-                simpleBody.appendChild(simpleRow);
-
+                if (simpleBody) {
+                    const simpleRow = document.createElement('tr');
+                    simpleRow.innerHTML = `
+                        <td>${item.tipoIES || '-'}</td>
+                        <td>${item.gestionIES || '-'}</td>
+                        <td>${item.regionIES || '-'}</td>
+                        <td>${item.nombreIES || '-'}</td>
+                        <td>${item.puntosExtraPAO || '0'}</td>
+                    `;
+                    simpleBody.appendChild(simpleRow);
+                }
+                
                 // Crear fila para vista avanzada
-                const advancedRow = document.createElement('tr');
-                advancedRow.innerHTML = `
-                <td>${item.tipoIES || '-'}</td>
-                <td>${item.regionIES || '-'}</td>
-                <td>${item.nombreIES || '-'}</td>
-                <td>${item.carreraIES || '-'}</td>
-                <td>${item.topIES || '-'}</td>
-                <td>${item.rankingIES || '0'}</td>
-                <td>${item.puntajeRankingIES || '0'}</td>
-                <td>${item.gestionIES || '-'}</td>
-                <td>${item.puntajeGestionIES || '0'}</td>
-                <td>${item.ratioSelectividad || '-'}</td>
-                <td>${item.puntajeRatioSelectividad || '0'}</td>
-                <td>${item.puntosExtraPAO || '0'}</td>
-            `;
-                advancedBody.appendChild(advancedRow);
+                if (advancedBody) {
+                    const advancedRow = document.createElement('tr');
+                    advancedRow.innerHTML = `
+                        <td>${item.tipoIES || '-'}</td>
+                        <td>${item.regionIES || '-'}</td>
+                        <td>${item.nombreIES || '-'}</td>
+                        <td>${item.carreraIES || '-'}</td>
+                        <td>${item.topIES || '-'}</td>
+                        <td>${item.rankingIES || '0'}</td>
+                        <td>${item.puntajeRankingIES || '0'}</td>
+                        <td>${item.gestionIES || '-'}</td>
+                        <td>${item.puntajeGestionIES || '0'}</td>
+                        <td>${item.ratioSelectividad || '-'}</td>
+                        <td>${item.puntajeRatioSelectividad || '0'}</td>
+                        <td>${item.puntosExtraPAO || '0'}</td>
+                    `;
+                    advancedBody.appendChild(advancedRow);
+                }
             });
-
+            
             // Mostrar la tabla correspondiente
             paoTableSimple.style.display = vistaAvanzada ? 'none' : 'table';
             paoTableAdvanced.style.display = vistaAvanzada ? 'table' : 'none';
-
-            // Configurar botones de detalle
-            document.querySelectorAll('.btn-detail').forEach(btn => {
-                btn.addEventListener('click', mostrarDetalles);
-            });
         }
 
         // Cambiar entre vistas simple y avanzada
         function cambiarVista() {
             const vistaAvanzada = document.querySelector('input[name="viewType"][value="advanced"]').checked;
-            paoTableSimple.style.display = vistaAvanzada ? 'none' : 'table';
-            paoTableAdvanced.style.display = vistaAvanzada ? 'table' : 'none';
+            const paoTableSimple = document.getElementById('paoTableSimple');
+            const paoTableAdvanced = document.getElementById('paoTableAdvanced');
+
+            if (paoTableSimple && paoTableAdvanced) {
+                paoTableSimple.style.display = vistaAvanzada ? 'none' : 'table';
+                paoTableAdvanced.style.display = vistaAvanzada ? 'table' : 'none';
+            }
         }
 
         // Mostrar detalles de una IES específica
@@ -1222,18 +1333,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Limpiar todos los filtros
         function limpiarFiltros() {
-            paoBuscador.value = '';
-            grupoCarreraSelect.value = '';
-
-            tipoIESCheckboxes.forEach(cb => {
+            if (paoBuscador) paoBuscador.value = '';
+            if (grupoCarreraSelect) grupoCarreraSelect.value = '';
+            
+            // Desmarcar todos los checkboxes (actualizados)
+            document.querySelectorAll('input[name="tipoIES"]').forEach(cb => {
                 cb.checked = false;
             });
-
-            gestionIESCheckboxes.forEach(cb => {
+            
+            document.querySelectorAll('input[name="gestionIES"]').forEach(cb => {
                 cb.checked = false;
             });
-
-            aplicarFiltros();
+            
+            // Restablecer datos filtrados
+            filteredData = [...iesData];
+            
+            // Actualizar resultados
+            actualizarResultados();
         }
     })();
 
